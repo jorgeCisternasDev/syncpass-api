@@ -76,15 +76,21 @@ Verificado: dos envíos del mismo lote dejan 2 asistencias y 1 encuesta.
 
 Copiar `.env.example` a `.env`; Spring lo lee con `spring.config.import`.
 
-## Pruebas
+## Pruebas y cobertura
 
 ```powershell
-.\gradlew.bat test
+.\gradlew.bat test                 # 65 pruebas
+.\gradlew.bat test jacocoTestReport
 ```
 
-`SyncControllerTest` cubre: asistencia repetida, encuesta repetida y lote nuevo (3 tests).
-`SyncSecurityIntegrationTest` cubre: 401 sin Bearer, 403 con rol no reconocido, sync con Asistente,
-roles del catálogo y CRUD completo de proyectos/eventos (5 tests).
+La suite cubre auth, seguridad, CRUD de proyectos y eventos, aprovisionamiento de participantes
+y el lote v2 (estado, cupos, presencia e idempotencia).
+
+- Reporte HTML: `build/reports/jacoco/test/html/index.html`
+- XML: `build/reports/jacoco/test/jacocoTestReport.xml`
+- Cobertura: **64,1 % de líneas** (467/729)
+
+El detalle de las tres suites está en [docs/pruebas-cobertura.md](docs/pruebas-cobertura.md).
 
 ## Integración con la app Android (DSY1105)
 
@@ -94,4 +100,14 @@ si no responde, el login cae al respaldo local. La copia `cl.duoc.syncpass` est�
 
 El `idToken` incluye el claim `groups` además de `roles`, porque `LectorJwt.grupos()` de la app
 lee `cognito:groups` o `groups`.
+
+## Documentación
+
+- [Arquitectura](docs/arquitectura.md)
+- [Casos de uso](docs/casos-de-uso.md)
+- [Requisitos](docs/requisitos.md)
+- [Roles y permisos](docs/roles-permisos.md)
+- [Pruebas y cobertura](docs/pruebas-cobertura.md)
+- [Guion de demo](docs/demo.md)
+- [Índice de documentación](docs/README.md)
 
