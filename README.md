@@ -1,7 +1,7 @@
 # SyncPass API
 
 Backend del caso CITT **SyncPass**: proyectos, eventos, asistencias por QR y encuestas.
-Es el servicio que consume la app Android de DSY1105 y el panel web de este repo.
+Es el servicio que consumen la app Android ([syncpass-mvp](https://github.com/jorgeCisternasDev/syncpass-mvp)) y el panel web ([syncpass-web](https://github.com/jorgeCisternasDev/syncpass-web)).
 
 ## Stack
 
