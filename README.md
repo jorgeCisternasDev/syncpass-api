@@ -3,6 +3,18 @@
 Backend del caso CITT **SyncPass**: proyectos, eventos, asistencias por QR y encuestas.
 Es el servicio que consumen la app Android ([syncpass-mvp](https://github.com/jorgeCisternasDev/syncpass-mvp)) y el panel web ([syncpass-web](https://github.com/jorgeCisternasDev/syncpass-web)).
 
+## Sistema en línea (entrega 2026-11-24)
+
+| Pieza | URL o repositorio |
+| --- | --- |
+| Panel + API | <https://syncpass-production.up.railway.app> |
+| Salud | <https://syncpass-production.up.railway.app/api/health> |
+| Base de datos | PostgreSQL administrado en Railway |
+| App Android | [syncpass-mvp](https://github.com/jorgeCisternasDev/syncpass-mvp) |
+| Web | [syncpass-web](https://github.com/jorgeCisternasDev/syncpass-web) |
+
+El panel React se sirve desde este mismo Spring Boot; la API queda bajo `/api`. La app usa `MODO_DEMO=false` y apunta a la URL pública.
+
 ## Stack
 
 - Java 21 · Spring Boot 4.1 · Gradle 9
@@ -94,9 +106,13 @@ El detalle de las tres suites está en [docs/pruebas-cobertura.md](docs/pruebas-
 
 ## Integración con la app Android (DSY1105)
 
-La app `SyncPass` apunta a `http://<IP-LAN-del-PC>:8080/`. La app activa del caso es
-`SyncPassMVP` (`cl.syncpass.app`), con `MODO_DEMO = true`: si la API responde, el rol sale del JWT;
-si no responde, el login cae al respaldo local. La copia `cl.duoc.syncpass` está archivada.
+La app `SyncPass` apunta a `https://syncpass-production.up.railway.app/`. La app activa del caso es
+`SyncPassMVP` (`cl.syncpass.app`), con `MODO_DEMO = false`: el login y la sincronización van siempre
+contra la API pública. La copia `cl.duoc.syncpass` está archivada.
+
+Verificación de integración: un `POST /api/sync/lote` con una asistencia y una encuesta devolvió
+`aceptados=2`; el dashboard pasó de 0 a 1 asistencia y 1 encuesta; el reenvío devolvió
+`duplicados=2` sin cambiar los totales.
 
 El `idToken` incluye el claim `groups` además de `roles`, porque `LectorJwt.grupos()` de la app
 lee `cognito:groups` o `groups`.
