@@ -15,6 +15,19 @@ Es el servicio que consumen la app Android ([syncpass-mvp](https://github.com/jo
 
 El panel React se sirve desde este mismo Spring Boot; la API queda bajo `/api`. La app usa `MODO_DEMO=false` y apunta a la URL pública.
 
+### Desplegar en Railway
+
+El `Dockerfile` de este repositorio clona `syncpass-web`, compila el panel y lo copia dentro de
+Spring Boot; después compila la API y arranca con un usuario no root. Desde esta carpeta:
+
+```powershell
+railway up -s syncpass -c
+```
+
+Variables necesarias: `SPRING_PROFILES_ACTIVE=postgres`, `DATABASE_URL`, `DATABASE_USER`,
+`DATABASE_PASSWORD`, `JWT_SECRET` y `CORS_ALLOWED_ORIGINS`. El `Dockerfile` sirve para cualquier
+host que construya imágenes; no depende de la carpeta `syncpass-fullstack`.
+
 ## Stack
 
 - Java 21 · Spring Boot 4.1 · Gradle 9

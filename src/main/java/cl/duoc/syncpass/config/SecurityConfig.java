@@ -68,6 +68,8 @@ public class SecurityConfig {
             .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .requestMatchers("/", "/index.html", "/assets/**", "/favicon.ico",
+                        "/login", "/usuarios", "/proyectos", "/eventos", "/error").permitAll()
                 .requestMatchers("/api/auth/**", "/api/health").permitAll()
                 .requestMatchers("/api/sync/**").hasAnyRole("Coordinador", "Monitor", "Asistente")
                 .requestMatchers(HttpMethod.POST, "/api/participantes")
