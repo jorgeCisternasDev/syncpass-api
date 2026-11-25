@@ -53,7 +53,8 @@ $env:JAVA_HOME = "<ruta al JDK 21>"
 # http://localhost:8080/api/health
 ```
 
-Usuarios sembrados automáticamente en modo local:
+Usuarios sembrados automáticamente en modo local. Son credenciales ficticias de demostración:
+en un entorno real se rotan y se siembran por variables de entorno, no con estos valores.
 
 | Correo | Contraseña | Rol |
 | --- | --- | --- |
