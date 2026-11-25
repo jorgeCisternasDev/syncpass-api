@@ -1,10 +1,14 @@
 package cl.duoc.syncpass.sync;
 
+import cl.duoc.syncpass.auth.model.Usuario;
+import cl.duoc.syncpass.auth.repository.UsuarioRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwsHeader;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
@@ -20,6 +24,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -38,7 +44,27 @@ class SyncSecurityIntegrationTest {
     @Autowired
     private JwtEncoder jwtEncoder;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     private final HttpClient client = HttpClient.newHttpClient();
+
+    @BeforeEach
+    void asegurarCoordinador() {
+        if (usuarioRepository.findByEmailIgnoreCase("coordinador@syncpass.cl").isEmpty()) {
+            usuarioRepository.save(Usuario.builder()
+                    .id(UUID.randomUUID().toString())
+                    .email("coordinador@syncpass.cl")
+                    .nombre("Camila Rojas")
+                    .passwordHash(passwordEncoder.encode("Coord.2026"))
+                    .roles(Set.of("Coordinador"))
+                    .activo(true)
+                    .build());
+        }
+    }
 
     @Test
     @DisplayName("POST /api/sync/lote sin Bearer devuelve 401")
@@ -69,6 +95,34 @@ class SyncSecurityIntegrationTest {
 
         assertEquals(200, response.statusCode());
         assertTrue(response.body().contains("\"aceptados\":0"), response.body());
+    }
+
+    @Test
+    @DisplayName("Login local valido, login invalido y dashboard autenticado")
+    void loginYDashboard() throws Exception {
+        HttpResponse<String> valido = post("/api/auth/login", null, """
+                {"email":"coordinador@syncpass.cl","password":"Coord.2026"}
+                """);
+        assertEquals(200, valido.statusCode(), valido.body());
+        assertTrue(valido.body().contains("\"accessToken\""), valido.body());
+
+        HttpResponse<String> invalido = post("/api/auth/login", null, """
+                {"email":"coordinador@syncpass.cl","password":"incorrecta"}
+                """);
+        assertEquals(401, invalido.statusCode(), invalido.body());
+
+        HttpResponse<String> resumen = get("/api/dashboard/resumen", token("Monitor"));
+        assertEquals(200, resumen.statusCode(), resumen.body());
+        assertTrue(resumen.body().contains("\"asistencias\""), resumen.body());
+    }
+
+    @Test
+    @DisplayName("Usuarios: Monitor recibe 403 y Coordinador recibe 200")
+    void usuariosRespetaRol() throws Exception {
+        assertEquals(403, get("/api/usuarios", token("Monitor")).statusCode());
+        HttpResponse<String> coordinador = get("/api/usuarios", token("Coordinador"));
+        assertEquals(200, coordinador.statusCode(), coordinador.body());
+        assertTrue(coordinador.body().contains("\"data\""), coordinador.body());
     }
 
     @Test

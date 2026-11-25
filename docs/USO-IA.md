@@ -35,8 +35,8 @@ La IA no reemplaza el criterio. Se usó para **leer, proponer, escribir borrador
 
 | Verificación | Comando o evidencia | Resultado |
 | --- | --- | --- |
-| API compila y pasa tests | `.\gradlew.bat test` | 65 pruebas, 0 fallos |
-| Cobertura API | JaCoCo | 64,1 % de líneas |
+| API compila y pasa tests | `.\gradlew.bat test` | 67 pruebas, 0 fallos |
+| Cobertura API | JaCoCo | 73,5 % de líneas |
 | Web compila y pasa tests | `npm test` y `npm run build` | 22 pruebas, 0 fallos |
 | Cobertura web | `npm run test:coverage` | 51 % de líneas |
 | App compila y pasa tests | `.\gradlew.bat testDebugUnitTest` | 79 pruebas, 0 fallos |

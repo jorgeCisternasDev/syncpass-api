@@ -6,7 +6,7 @@ Medición hecha el **2026-11-18** sobre `main` (`062b26c`) con la rama de docume
 
 | Proyecto | Comando | Resultado |
 | --- | --- | --- |
-| Backend | `.\gradlew.bat test` | **65 pruebas, 0 fallos** |
+| Backend | `.\gradlew.bat test` | **67 pruebas, 0 fallos** |
 | Web | `npm test` | **20 pruebas, 0 fallos** (7 archivos) |
 | App Android | `.\gradlew.bat testDebugUnitTest` | **79 pruebas, 0 fallos** |
 | Web build | `npm run build` | `tsc --noEmit` + Vite OK |
@@ -20,11 +20,11 @@ cd syncpass_api
 
 | Métrica | Cubierto / total | Porcentaje |
 | --- | --- | --- |
-| Instrucciones | 2.117 / 3.253 | **65,1 %** |
-| Ramas | 126 / 236 | **53,4 %** |
-| Líneas | 467 / 729 | **64,1 %** |
-| Métodos | 104 / 151 | **68,9 %** |
-| Clases | 30 / 34 | **88,2 %** |
+| Instrucciones | 2.428 / 3.299 | **73,6 %** |
+| Ramas | 131 / 236 | **55,5 %** |
+| Líneas | 539 / 733 | **73,5 %** |
+| Métodos | 116 / 153 | **75,8 %** |
+| Clases | 34 / 35 | **97,1 %** |
 
 - Reporte HTML: `syncpass_api/build/reports/jacoco/test/html/index.html`.
 - XML: `syncpass_api/build/reports/jacoco/test/jacocoTestReport.xml`.

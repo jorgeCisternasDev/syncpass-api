@@ -93,7 +93,7 @@ La clase del 19-11 (DAM, 00:56–03:11) lo dice explícito: «son tres repos: ba
 
 | Pieza | Repositorio | Estado |
 | --- | --- | --- |
-| API | `syncpass-api` | Activo, 65 pruebas, 64,1 % de cobertura de líneas |
+| API | `syncpass-api` | Activo, 67 pruebas, 73,5 % de cobertura de líneas |
 | Web | `syncpass-web` | Activo, 22 pruebas, 51 % de cobertura de líneas |
 | Mobile | `syncpass-mvp` | Activo, APK firmado, `MODO_DEMO=false`, apunta a la URL pública |
 
@@ -118,7 +118,7 @@ Eso demuestra la cadena **app (contrato) → API → PostgreSQL → panel web**.
 
 | Pieza | Pruebas | Cobertura |
 | --- | --- | --- |
-| API | 65 | 64,1 % de líneas |
+| API | 67 | 73,5 % de líneas |
 | Web | 22 | 51 % de líneas |
 | Mobile | 79 unitarias | No representativa por el sandbox de Robolectric; declararlo así |
 

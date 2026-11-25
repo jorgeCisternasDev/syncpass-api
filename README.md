@@ -104,7 +104,7 @@ Copiar `.env.example` a `.env`; Spring lo lee con `spring.config.import`.
 ## Pruebas y cobertura
 
 ```powershell
-.\gradlew.bat test                 # 65 pruebas
+.\gradlew.bat test                 # 67 pruebas
 .\gradlew.bat test jacocoTestReport
 ```
 
@@ -113,7 +113,7 @@ y el lote v2 (estado, cupos, presencia e idempotencia).
 
 - Reporte HTML: `build/reports/jacoco/test/html/index.html`
 - XML: `build/reports/jacoco/test/jacocoTestReport.xml`
-- Cobertura: **64,1 % de líneas** (467/729)
+- Cobertura: **73,5 % de líneas** (539/733)
 
 El detalle de las tres suites está en [docs/pruebas-cobertura.md](docs/pruebas-cobertura.md).
 
