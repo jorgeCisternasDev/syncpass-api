@@ -58,6 +58,8 @@ flowchart LR
     seguridad --> proyectos[ProyectoController]
     seguridad --> eventos[EventoController]
     seguridad --> participantes[ParticipanteController]
+    seguridad --> dashboard[DashboardController]
+    seguridad --> health[HealthController]
     seguridad --> sync[SyncController]
 
     auth --> authService[AuthService]
@@ -74,6 +76,12 @@ flowchart LR
     loteService --> encuestaRepo[EncuestaRepository]
     loteService --> eventoRepo
 
+    dashboard --> usuarioRepo
+    dashboard --> eventoRepo
+    dashboard --> asistenciaRepo
+    dashboard --> encuestaRepo
+    health --> config[Configuracion de auth]
+
     usuarioRepo --> jpa[JPA / Hibernate]
     proyectoRepo --> jpa
     eventoRepo --> jpa
@@ -83,6 +91,8 @@ flowchart LR
 ```
 
 **Recorrido de un botón:** un controlador recibe el DTO y valida; el servicio aplica la regla (rol, cupo, estado, idempotencia); el repositorio consulta o escribe; Hibernate traduce a SQL; PostgreSQL guarda. La respuesta vuelve por el mismo camino.
+
+`DataSeeder` y `EventoSeeder` son componentes de arranque: siembran usuarios y catálogo de demo cuando la base está vacía. No participan de una petición normal, por eso no aparecen en el flujo del controlador.
 
 Reglas que el profesor puede preguntar:
 
@@ -153,6 +163,8 @@ flowchart TB
 | Trabajo en segundo plano | `sync/SyncWorker.kt`, `sync/SyncScheduler.kt` | Reintenta la cola pendiente cuando hay red. |
 
 **Recorrido de un botón:** la pantalla llama al ViewModel; el ViewModel llama al repositorio; el repositorio escribe en Room con `sincronizado=0` y encola el trabajo; el worker toma la cola y la envía por Retrofit; la API responde y el repositorio marca `sincronizado=1`. Si no hay red, el dato queda en Room y se reintenta.
+
+**Frontera de HTTP:** la única capa que construye requests, conoce la URL y define los DTO es `data/remote`. Los repositorios capturan `HttpException` o `IOException` solo para traducir un fallo de transporte a un mensaje de dominio; no abren conexiones ni conocen endpoints. Si se exigiera pureza total, ese `try/catch` se movería a un wrapper en `data/remote`; la separación de responsabilidades se mantiene.
 
 ## Conexión completa
 
