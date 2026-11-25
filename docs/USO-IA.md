@@ -14,7 +14,7 @@ La IA no reemplaza el criterio. Se usó para **leer, proponer, escribir borrador
 
 | Tarea | Aporte de la IA | Decisión o revisión humana | Evidencia |
 | --- | --- | --- | --- |
-| Lectura de requisitos | Resumir transcripciones y separar lo administrativo de lo técnico | Se contrastó cada afirmación con el minuto de la clase | `CONTEXTO_ENTREGA_FINAL.md` |
+| Lectura de requisitos | Resumir transcripciones y separar lo administrativo de lo técnico | Se contrastó cada afirmación con el minuto de la clase | `CONTEXTO-ENTREGA-FINAL.md` |
 | Arquitectura | Borrador de diagramas C4 y explicación de capas | Se ajustó al código real y a lo que el profesor pregunta | `docs/ARQUITECTURA-C4.md` |
 | API | Esqueleto de controladores, servicios, repositorios y DTO | Se definieron reglas de negocio, roles e idempotencia | `syncpass-api`, 65 tests |
 | Panel web | Componentes, rutas, cliente HTTP y tests | Se revisó el flujo de login, el guard por rol y la accesibilidad básica | `syncpass-web`, 20 tests |
