@@ -122,17 +122,22 @@ Eso demuestra la cadena **app (contrato) → API → PostgreSQL → panel web**.
 | Web | 22 | 51 % de líneas |
 | Mobile | 79 unitarias | No representativa por el sandbox de Robolectric; declararlo así |
 
-## 6. Brechas que faltan para la entrega
+## 6. Estado de las brechas (actualizado 2026-11-24)
 
-| Brecha | Prioridad | Qué hacer |
+| Punto | Estado | Evidencia |
 | --- | --- | --- |
-| C4 C2 y C3 por aplicación | Alta | Crear `docs/ARQUITECTURA-C4.md` con Mermaid: C2 del sistema y C3 de API, web y mobile. |
-| Documento de uso de IA | Alta | Crear `docs/USO-IA.md` con qué hizo la IA, qué decidió el humano y cómo se verificó. |
-| README de los tres repos desactualizados | Alta | Poner la URL pública, el APK y los enlaces entre repos en `syncpass-api`, `syncpass-web` y `syncpass-mvp`. |
-| Evidencia de la app contra la API pública | Media | Instalar el APK en un teléfono/emulador y mostrar login + catálogo + sincronización; o adjuntar el video de 90 s. |
-| Video de 90 s | Media | Ya existe `2026-11-17_demo\syncpass-demo.mp4` (1:27). Revisar que muestre la app y el flujo; si no, regrabar. |
-| `ddl-auto=validate` en producción | Media | Cambiar `DDL_AUTO=update` a `validate` después de estabilizar el esquema; hoy `update` es aceptable para la demo. |
-| Defensa individual | Alta | Preparar el recorrido: botón → componente → cliente HTTP → controlador → servicio → repositorio → tabla. |
+| C4 C2/C3 por aplicación | Hecho | `docs/ARQUITECTURA-C4.md`: C1, C2 y C3 de API, web y mobile, con el recorrido de un botón. |
+| Documento de uso de IA | Hecho | `docs/USO-IA.md`: qué hizo la IA, qué decidió el humano y cómo se verificó. |
+| README de los tres repos | Hecho | URL pública, APK y enlaces entre repos en `syncpass-api`, `syncpass-web` y `syncpass-mvp`. |
+| Evidencia de la app contra la API pública | Hecho | Emulador API 37: 3 proyectos, 3 eventos, Ana Demo acreditada 1/1; dashboard 3→4 usuarios y 1→2 asistencias. Capturas en `entrega_online_2026-11-24/evidencia-app/`. |
+| Video de 90 s | Hecho | `entrega_online_2026-11-24/video-90s.mp4`, 1:27. |
+| Despliegue desde los repos y usuario no root | Hecho | `syncpass-api/Dockerfile` clona `syncpass-web`, compila API y panel, y corre con `USER app`. |
+| Tests de API | Hecho | 67 pruebas; login, dashboard y rol de usuarios agregados; cobertura 73,5 % de líneas. |
+| Tests de web | Hecho | 22 pruebas; token vencido se descarta y logout limpia la sesión de inmediato. |
+| Tests de ViewModel en la app | Pendiente | Solo 1 ViewModel con test; el resto son reglas y repositorios. Declararlo como límite o agregar 2-3 antes de la defensa. |
+| Cobertura móvil 30 % | Pendiente declarado | La medición con Robolectric da 2,6 % y no es representativa; no se maquilla. |
+| `ddl-auto=validate` en producción | Decisión de demo | Se usa `update` para no romper el esquema; para producción real hay que versionar el esquema (Flyway) y pasar a `validate`. |
+| Guía de defensa | Hecho | `DEFENSA.md`: guion de 10 minutos, preguntas probables y respuestas con archivo:línea. |
 
 ## 7. Cómo verificar sin creerle al agente
 

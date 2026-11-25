@@ -8,6 +8,7 @@ Documentación transversal del sistema. Los repos de web y app enlazan acá lo q
 | [ARQUITECTURA-C4.md](ARQUITECTURA-C4.md) | C4 para la defensa: C2 de contenedores y C3 de API, web y mobile, con el recorrido de un botón |
 | [USO-IA.md](USO-IA.md) | Cómo se usó la IA como herramienta de ingeniería y qué se verificó |
 | [CONTEXTO-ENTREGA-FINAL.md](CONTEXTO-ENTREGA-FINAL.md) | Qué pidieron los profesores, con el minuto de la clase, y el estado comprobado del sistema |
+| [DEFENSA.md](DEFENSA.md) | Guion de 10 minutos, preguntas probables y respuestas con archivo:línea |
 | [casos-de-uso.md](casos-de-uso.md) | 14 casos con actor, flujo, excepciones y trazabilidad |
 | [requisitos.md](requisitos.md) | 22 RF, 13 RNF, reglas de negocio y alcance |
 | [roles-permisos.md](roles-permisos.md) | Matriz de permisos por endpoint, ruta web y pantalla de app |
